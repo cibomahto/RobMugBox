@@ -186,17 +186,29 @@ public class RobMugBoxActivity extends Activity {
 //						Toast.LENGTH_SHORT).show();				
 //			}
 
-			boolean rob = false;
-			boolean mug = false;
+			boolean wafaaIsHome = false;
+			boolean wafaaIsNear = false;
 			
 			// If we know both Wafaa's location and his home location, compute rob
 			if (wafaaLocation != null && wafaaHomeLocation != null) {
-				rob = !areLocationsClose(wafaaLocation, wafaaHomeLocation); 
+				wafaaIsHome = areLocationsClose(wafaaLocation, wafaaHomeLocation); 
 			}
 			
 			// If we know both our location and Wafaa's location, compute mug
 			if (wafaaLocation != null && myLocation != null) {
-				mug = areLocationsClose(wafaaLocation, myLocation); 
+				wafaaIsNear = areLocationsClose(wafaaLocation, myLocation); 
+			}
+			
+			boolean rob = false;
+			boolean mug = false;
+			
+			if (!wafaaIsHome) {
+				if (wafaaIsNear) {
+					mug = true;
+				}
+				else {
+					rob = true;
+				}
 			}
 			
 			updateDisplay(rob, mug);
